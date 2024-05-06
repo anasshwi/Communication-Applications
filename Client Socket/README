@@ -1,0 +1,30 @@
+Project: http proxy client
+cproxy.c: implementation of constructing a request, connecting to the server and recieving a respond and saving it in it's directory.
+
+Description:
+cproxy is a simple C program designed to act as a basic HTTP proxy. It allows users to retrieve files from remote web servers using HTTP GET requests and saves them locally.
+If the requested file is already present in the local filesystem, it serves the file directly without requesting it from the server again.
+
+Features:
+HTTP GET requests: Supports sending HTTP GET requests to remote servers to retrieve files.
+
+Local caching: Checks if the requested file is already present in the local filesystem. If found, serves the file directly from the cache.
+
+Port handling: Parses URLs to extract the port number, if specified, for establishing connections.
+
+Error handling: Provides error handling for various scenarios such as socket creation, connection establishment, file operations, and memory allocation.
+
+Command-line options: Supports an optional command-line argument (-s) to open the downloaded file using the default system application.
+
+Usage:(write in terminal)
+./cproxy <URL> [-s]
+-s : open the path (optional)
+
+URL Format:
+http://hostname[:port]/path/to/file
+
+Note:
+
+This proxy only supports HTTP GET requests.
+Error messages will be displayed if any issues occur during execution.
+Ensure proper permissions and network connectivity for successful operation.
