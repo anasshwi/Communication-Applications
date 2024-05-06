@@ -1,0 +1,43 @@
+Project: chat server between clients
+chatServer.c: c code file implements a simple chat server using the select mechanism to handle multiple client connections simultaneously.
+
+Description:
+SimpleChatServer is a non-blocking TCP-based chat server implemented in C. It allows multiple clients to connect simultaneously and exchange messages with each other.
+The server utilizes the select() system call for handling multiple client connections efficiently without blocking. Clients can connect to the server using TCP/IP sockets and send messages, which are then broadcasted to all other connected clients.
+
+Features:
+
+Non-blocking I/O: Utilizes the select() system call to handle multiple client connections concurrently without blocking, ensuring efficient handling of client communication.
+Dynamic Client Management: Supports dynamic addition and removal of client connections during runtime, allowing clients to join or leave the chat session seamlessly.
+Message Broadcasting: Broadcasts messages received from one client to all other connected clients, enabling real-time group communication.
+Signal Handling: Implements signal handling for graceful server shutdown, allowing the server to clean up resources and exit gracefully upon receiving a SIGINT signal (e.g., Ctrl+C).
+Error Handling: Provides error handling for various scenarios such as socket creation, binding, listening, accepting connections, reading from and writing to sockets, and memory allocation.
+
+Usage:
+server <port>
+<port>: The port number on which the server listens for incoming connections from clients.
+
+Compile the code using any C compiler:
+gcc -o server server.c
+
+Connection Handling:
+
+The server listens for incoming client connections on the specified port using a TCP socket.
+Upon accepting a new client connection, the server adds the client's socket descriptor to the list of file descriptors being monitored by select().
+When data is received from a client, the server reads the data and broadcasts it to all other connected clients.
+
+Signal Handling:
+
+The server registers a signal handler for the SIGINT signal (Ctrl+C), allowing graceful termination of the server.
+Upon receiving the SIGINT signal, the server cleans up resources, closes all client connections, and exits gracefully.
+
+Dependencies:
+
+Standard C libraries: stdio.h, stdlib.h, string.h, errno.h, signal.h, unistd.h, sys/socket.h, netinet/in.h, arpa/inet.h, sys/ioctl.h, ctype.h, sys/select.h, fcntl.h.
+
+Note:
+
+Ensure that clients connect to the server using TCP sockets and the appropriate IP address and port number.
+The server supports a maximum of MAX_CLIENTS concurrent connections, as defined in the code.
+Handle client disconnections gracefully by removing the disconnected client from the list of active connections.
+Customize the server behavior and add additional features as needed for specific use cases.
