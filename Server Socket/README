@@ -1,0 +1,43 @@
+Project: http server using threadpool
+threadpool.h : header for the threadpool.
+threadpool.c : implementing the create, queue and destroy for the thread pool.
+proxyServer.c : c file for simulating proxy server client socket and response for each situation.
+
+Description:
+proxyServer is a multi-threaded HTTP proxy server implemented in C. It allows clients to connect and send HTTP requests, and then forwards these requests to remote servers. Upon receiving responses from the remote servers, it relays the responses back to the clients. The server is capable of handling multiple concurrent connections using a thread pool.
+
+Features:
+
+Multi-threaded Operation: Utilizes a thread pool to handle multiple client connections concurrently, improving server efficiency and scalability.
+HTTP Request Handling: Parses incoming HTTP requests, extracts relevant information such as the requested path and host, and forwards the requests to remote servers.
+Response Relay: Receives responses from remote servers and relays them back to the clients.
+Error Handling: Provides error handling for various scenarios such as socket creation, connection establishment, request parsing, and response relay.
+Filtering: Allows filtering of requests based on a predefined list. Requests to certain hosts or IP ranges can be blocked or restricted.
+HTTP Status Code Handling: Supports handling of various HTTP status codes (e.g., 200, 302, 400, 403, 404, 500, 501) with appropriate response messages.
+
+Usage:
+proxyServer <port> <pool-size> <max-number-of-requests> <filter-file>
+<port>: The port number on which the proxy server listens for incoming connections.
+<pool-size>: The size of the thread pool, determining the maximum number of concurrent connections the server can handle.
+<max-number-of-requests>: The maximum number of requests the server can accept before exiting.
+<filter-file>: A file containing a list of hosts or IP ranges to filter/block requests. Each entry should be on a separate line.
+
+Compile the code using any C compiler:
+gcc -o proxyServer proxyServer.c threadpool.c -lpthread
+
+Example Filter File:
+example.com
+xxx.xxx.xxx.xxx
+
+Requests to example.com and IP addresses starting with xxx.xxx.xxx.xxx will be filtered or restricted.
+
+Dependencies:
+
+Standard C libraries: stdio.h, stdlib.h, pthread.h, string.h, unistd.h, ctype.h, sys/stat.h, fcntl.h, dirent.h, signal.h, arpa/inet.h, netdb.h.
+External header file: threadpool.h.
+
+Note:
+
+Ensure proper permissions and network connectivity for successful operation.
+Properly configure the filter file to control which requests are allowed or blocked.
+Handle requests and responses carefully to avoid security vulnerabilities and ensure proper functionality.
